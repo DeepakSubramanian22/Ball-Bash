@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour
         PlayerRB.AddForce(focalPoint.transform.forward * (speed * playerInput));
         PowerUpIndicator.transform.position = transform.position + new Vector3(0,-0.5f,0);
     }
+    
 
     private void OnTriggerEnter(Collider other)
     {
