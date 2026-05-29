@@ -4,11 +4,16 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public int enemyCount;
+    public int waveNumber;
     private float spawnPos = 9.0f;
+
+    public GameObject powerUpPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnEnemyWave(3);
+        Instantiate(powerUpPrefab, generateRandomPos(), Quaternion.identity);
+        SpawnEnemyWave(waveNumber);
+      
     }
 
     // Update is called once per frame
@@ -18,7 +23,9 @@ public class SpawnManager : MonoBehaviour
 
         if (enemyCount == 0)
         {
-            SpawnEnemyWave(1);
+            waveNumber++;
+            SpawnEnemyWave(waveNumber);
+            Instantiate(powerUpPrefab, generateRandomPos(), Quaternion.identity);
         }
     }
 
