@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     public bool hasPowerUp = false;
     public GameObject PowerUpIndicator;
     private float powerUp = 15;
+    private LobbyController lobbyController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +37,10 @@ public class PlayerControl : MonoBehaviour
             Destroy(other.gameObject);
             StartCoroutine(powerUpCountdownRoutine());
         }
+        if (other.gameObject.CompareTag("GameOverCollider"))
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     IEnumerator powerUpCountdownRoutine()
@@ -55,4 +61,6 @@ public class PlayerControl : MonoBehaviour
             Debug.Log("Collided with " + collision.gameObject.name + "With the Powerup Set to" + hasPowerUp);
         }
     }
+    
+    
 }
