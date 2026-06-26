@@ -36,9 +36,17 @@ public class PlayerControl : MonoBehaviour
             PowerUpIndicator.gameObject.SetActive(true);
             Destroy(other.gameObject);
             StartCoroutine(powerUpCountdownRoutine());
+            
         }
         if (other.gameObject.CompareTag("GameOverCollider"))
         {
+            StartCoroutine(GameOverRoutine());
+        }
+        
+        IEnumerator GameOverRoutine()
+        {
+            AudioManager.Instance.PlayGameOverSound();
+            yield return new WaitForSeconds(2f); // Wait for the sound
             SceneManager.LoadScene(2);
         }
     }
@@ -59,6 +67,14 @@ public class PlayerControl : MonoBehaviour
             
             enemyRb.AddForce(AwayfromPlayer * powerUp , ForceMode.Impulse);
             Debug.Log("Collided with " + collision.gameObject.name + "With the Powerup Set to" + hasPowerUp);
+            
+            AudioManager.Instance.PlayHardHitSound();
+        }
+
+        if (collision.gameObject.CompareTag("Enemy")&& !hasPowerUp)
+        {
+           
+            AudioManager.Instance.PlayHitSound();
         }
     }
     
